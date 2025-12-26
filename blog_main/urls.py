@@ -30,4 +30,7 @@ urlpatterns = [
     path('login/',login,name='login'),
     path('logout/',logout,name='logout'),
 
+    # dashboards urls
+    path('dashboards/',include('dashboards.urls')),
+
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
