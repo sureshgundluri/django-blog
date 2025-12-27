@@ -77,9 +77,6 @@ def add_post(request):
             post.slug = slugify(title) + "-" + str(post.id)
             post.save()
             return redirect('posts')
-        else:
-            print('Entered data is wrong')
-            print(form.errors)
     form = BlogPostForm()
     context = {
         'form':form,
