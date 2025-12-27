@@ -8,4 +8,9 @@ class CategoryForm(forms.ModelForm):
         fields = '__all__'
 
 
+class BlogPostForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        exclude = ['slug','author']
+
 
