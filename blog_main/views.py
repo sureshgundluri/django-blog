@@ -4,6 +4,7 @@ from assignments.models import *
 from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+from django.contrib import messages
 
 
 def home(request):
@@ -26,7 +27,12 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('register')
+            messages.success(
+                request,
+                "🎉 Registration successful! Please log in."
+            )
+
+            return redirect('login')
     else:
         form = RegistrationForm()
     context ={
@@ -45,6 +51,10 @@ def login(request):
             user = auth.authenticate(request,username=username,password=password)
             if user is not None:
                 auth.login(request,user)
+                messages.success(
+                request,
+                f"👋 Welcome back, {user.username}!"
+            )
             return redirect('home')
     else:
         form = AuthenticationForm()

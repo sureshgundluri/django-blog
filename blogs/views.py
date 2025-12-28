@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404 , render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import *
 from django.db.models import Q
+from django.contrib import messages
 # Create your views here.
 
 def post_by_category(request,category_id):
@@ -31,7 +32,14 @@ def blogs(request,slug):
         #  getting the comment from the Name parameter of the comment form in the blogs UI.
         comment.comment = request.POST['comment']
         comment.save()
-        return HttpResponseRedirect(request.path_info) 
+        messages.success(request, "💬 Your comment has been added successfully."
+            )
+        return HttpResponseRedirect(request.path_info)
+    else:
+        messages.error(
+            request,
+            "❌ Failed to add comment. Please check your input."
+        ) 
     comments = Comments.objects.filter(blog=single_blog)
     comments_counts = comments.count()
     context = {

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.contrib import messages
 # Create your views here.
 
 
@@ -11,8 +12,6 @@ from django.contrib.auth.models import User
 def dashboards(request):
     category_count = Category.objects.all().count()
     blogs_count = Blog.objects.all().count()
-    print(category_count)
-    print(blogs_count)
     context = {
         'category_count':category_count,
         'blogs_count':blogs_count,
@@ -27,9 +26,11 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,"📂 New category added successfully.")
             return redirect('categories')
         else:
-            print(form.errors)
+            messages.error(request,"❌ Failed to add category. Please check the form.")
+            return redirect('categories')
     else:
         form = CategoryForm()
     context = {
@@ -42,6 +43,10 @@ def edit_category(request,pk):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
+            messages.success(request, "✏️ Category updated successfully.")
+            return redirect('categories')
+        else:
+            messages.error(request,"❌ Failed to update category. Please check the form.")
             return redirect('categories')
     else:
         form = CategoryForm(instance=category)
@@ -57,6 +62,7 @@ def edit_category(request,pk):
 def delete_category(request,pk):
     category = get_object_or_404(Category,pk=pk)
     category.delete()
+    messages.warning(request,"🗑️ Category deleted successfully.")
     return redirect('categories')
 
 def posts(request):
@@ -76,6 +82,11 @@ def add_post(request):
             title = form.cleaned_data['title']
             post.slug = slugify(title) + "-" + str(post.id)
             post.save()
+            messages.success(request,"New Blog Post added successfully."
+            )
+            return redirect('posts')
+        else:
+            messages.error(request,"❌ Failed to add Blog Post. Please check the form.")
             return redirect('posts')
     form = BlogPostForm()
     context = {
@@ -89,7 +100,12 @@ def edit_post(request,pk):
         form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
+            messages.success(request, "✏️ Blog Post updated successfully.")
             return redirect('posts')
+        else:
+            messages.error(request,"❌ Failed to update Blog Post. Please check the form.")
+            return redirect('posts')
+
     else:
         form = BlogPostForm(instance=post)
     
@@ -103,6 +119,7 @@ def edit_post(request,pk):
 def delete_post(request,pk):
     post = get_object_or_404(Blog,pk=pk)
     post.delete()
+    messages.warning(request,"🗑️ Blog Post deleted successfully.")
     return redirect('posts')
 
 
@@ -118,7 +135,14 @@ def add_user(request):
         form = AddUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,"New Blog Post added successfully.")
             return redirect('user')
+        else:
+            messages.error(
+                request,
+                "❌ Failed to add user. Please correct the errors below."
+            )
+            return redirect('add_user')
     form = AddUserForm()
     context ={
         'form':form,
@@ -131,6 +155,7 @@ def edit_user(request,pk):
         form = EditUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request,"✏️ User details updated successfully.")
             return redirect('user')
     else:
         form = EditUserForm(instance=user)
@@ -145,6 +170,7 @@ def edit_user(request,pk):
 def delete_user(request,pk):
     user = get_object_or_404(User,pk=pk)
     user.delete()
+    messages.warning(request,"🗑️ User deleted successfully.")
     return redirect('user')
 
 
