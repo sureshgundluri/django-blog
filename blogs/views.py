@@ -34,12 +34,7 @@ def blogs(request,slug):
         comment.save()
         messages.success(request, "💬 Your comment has been added successfully."
             )
-        return HttpResponseRedirect(request.path_info)
-    else:
-        messages.error(
-            request,
-            "❌ Failed to add comment. Please check your input."
-        ) 
+        return HttpResponseRedirect(request.path_info) 
     comments = Comments.objects.filter(blog=single_blog)
     comments_counts = comments.count()
     context = {

@@ -5,6 +5,8 @@ from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 from django.contrib import messages
+from django.contrib.auth.models import Group
+
 
 
 def home(request):
@@ -26,7 +28,7 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             messages.success(
                 request,
                 "🎉 Registration successful! Please log in."

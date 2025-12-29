@@ -5,6 +5,7 @@ from .forms import *
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.urls import reverse
 # Create your views here.
 
 
@@ -61,9 +62,15 @@ def edit_category(request,pk):
 
 def delete_category(request,pk):
     category = get_object_or_404(Category,pk=pk)
-    category.delete()
-    messages.warning(request,"🗑️ Category deleted successfully.")
-    return redirect('categories')
+    if request.method == 'POST':
+        category.delete()
+        messages.warning(request,"🗑️ Category deleted successfully.")
+        return redirect('categories')
+    context ={
+        'category':category,
+        'cancel':reverse('categories')
+    }
+    return render(request,'dashboards/confirm_delete.html',context)
 
 def posts(request):
     posts = Blog.objects.all()
@@ -118,9 +125,16 @@ def edit_post(request,pk):
 
 def delete_post(request,pk):
     post = get_object_or_404(Blog,pk=pk)
-    post.delete()
-    messages.warning(request,"🗑️ Blog Post deleted successfully.")
-    return redirect('posts')
+    if request.method == 'POST':
+        post.delete()
+        messages.warning(request,"🗑️ Blog Post deleted successfully.")
+        return redirect('posts')
+    context ={
+        'post':post,
+        'cancel':reverse('posts')
+    }
+    return render(request,'dashboards/confirm_delete.html',context)
+    
 
 
 def users(request):
@@ -169,9 +183,15 @@ def edit_user(request,pk):
 
 def delete_user(request,pk):
     user = get_object_or_404(User,pk=pk)
-    user.delete()
-    messages.warning(request,"🗑️ User deleted successfully.")
-    return redirect('user')
+    if request.method == 'POST':
+        user.delete()
+        messages.warning(request,"🗑️ User deleted successfully.")
+        return redirect('user')
+    context ={
+        'user':user,
+        'cancel':reverse('user')
+    }
+    return render(request,'dashboards/confirm_delete.html',context)
 
 
 

@@ -9,6 +9,7 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
+        {% if perms.Blogs.edit_categogy %}
         <h2>Edit Category</h2>
         <form action="{% url 'edit_category' category.id %}" method="POST" style="width: 500px;">
             {% csrf_token %}
@@ -16,6 +17,9 @@
             <button type="submit" class="btn btn-warning">Submit</button>
         </form>
         <br>
+        {% else %}
+        <h5>You do not have permission to edit the category</h5>
+        {% endif %}
     </div>
 </div>
 

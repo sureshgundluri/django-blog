@@ -2,10 +2,11 @@
 
 {% block content %}
 
+{% if perms.Blogs.add_categogy and perms.Blogs.edit_categogy and perms.Blogs.add_blog and perms.Blogs.edit_blog and perms.auth.add_user and perms.auth.edit_user %}
 <div class="row">
     <!-- Left side bar -->
     {% include 'dashboards/sidebar.html' %}
-
+    
     <!-- Right side content -->
     <div class="col-md-9">
         <div class="row">
@@ -29,5 +30,8 @@
     </div>
 
 </div>
+{% else %}
+<h5>You do not have permission to view dashboard</h5>
+{% endif %}
 
 {% endblock %}

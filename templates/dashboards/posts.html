@@ -8,6 +8,7 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
+    {% if perms.Blogs.view_blog %}
     <h3>All Posts</h3>
     <a href="{% url 'add_post' %}" class="btn btn-dark text-light float-right mb-2">Add New</a>
     <table class="table table-hover">
@@ -40,6 +41,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h5>You do not have permission to view blogs</h5>
+    {% endif %}
     </div>
 </div>
 
