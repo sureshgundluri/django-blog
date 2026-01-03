@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% if perms.Blogs.add_categogy and perms.Blogs.edit_categogy and perms.Blogs.add_blog and perms.Blogs.edit_blog and perms.auth.add_user and perms.auth.edit_user %}
+{% if perms.blogs.add_category and perms.blogs.change_category and perms.blogs.add_blog and perms.blogs.change_blog %}
 <div class="row">
     <!-- Left side bar -->
     {% include 'dashboards/sidebar.html' %}

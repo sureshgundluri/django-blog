@@ -9,7 +9,7 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
-        {% if perms.Blogs.add_blog %}
+        {% if perms.blogs.add_blog %}
         <h2>Add New Posts</h2>
         <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}

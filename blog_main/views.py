@@ -29,6 +29,10 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            editor = Group.objects.filter(name='Editor').first()
+            if editor:
+                user.groups.add(editor)
             messages.success(
                 request,
                 "🎉 Registration successful! Please log in."

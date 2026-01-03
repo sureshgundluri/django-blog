@@ -8,7 +8,7 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
-    {% if perms.Blogs.view_category %}
+    {% if perms.blogs.view_category %}
     <h3>All Categories</h3>
     <a href="{% url 'add_category' %}" class="btn btn-dark text-light float-right mb-2">Add New</a>
     <table class="table table-hover">
@@ -38,7 +38,7 @@
         </tbody>
     </table>
     {% else %}
-    <h5>You do not have permission to view_categogy</h5>
+    <h5>You do not have permission to view categogy</h5>
     {% endif %}
     </div>
 </div>

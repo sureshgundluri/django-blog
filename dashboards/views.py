@@ -103,6 +103,13 @@ def add_post(request):
 
 def edit_post(request,pk):
     post = get_object_or_404(Blog,pk=pk)
+    # 🚫 Permission check AFTER click
+    if post.author != request.user:
+        messages.warning(
+            request,
+            "⛔ You don't have permission to edit this blog."
+        )
+        return redirect('posts')    
     if request.method == 'POST':
         form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
@@ -125,6 +132,13 @@ def edit_post(request,pk):
 
 def delete_post(request,pk):
     post = get_object_or_404(Blog,pk=pk)
+    # 🚫 Permission check AFTER click
+    if post.author != request.user:
+        messages.warning(
+            request,
+            "⛔ You don't have permission to delete this blog."
+        )
+        return redirect('posts')
     if request.method == 'POST':
         post.delete()
         messages.warning(request,"🗑️ Blog Post deleted successfully.")

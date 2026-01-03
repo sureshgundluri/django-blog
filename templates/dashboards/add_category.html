@@ -9,7 +9,7 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
-        {% if perms.Blogs.add_categogy %}
+        {% if perms.blogs.add_categogy %}
         <h2>Add New Category</h2>
         <form action="" method="POST" style="width: 500px;">
             {% csrf_token %}

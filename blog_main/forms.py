@@ -6,6 +6,6 @@ class RegistrationForm(UserCreationForm):
     # Extending the UserCreationForm is used to get the default User model fields for creating a user.
     class Meta:
         model = User
-        fields = ('email','username','first_name','last_name','password1','password2')
+        fields = ('username','password1','password2')
 
 
