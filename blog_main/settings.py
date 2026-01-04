@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'dashboards',
+    'django_ckeditor_5',
+    'ckeditor',
+    'ckeditor_uploader',
+    
 ]
 
 MIDDLEWARE = [
@@ -139,6 +143,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading',
+            '|',
+            'bold', 'italic', 'underline',
+            '|',
+            'bulletedList', 'numberedList',
+            '|',
+            'link',
+            '|',
+            'undo', 'redo'
+        ],
+    }
+}
